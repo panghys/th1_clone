@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     private CharacterController characterController;
+    [SerializeField] public Shooter shooter;
     [SerializeField] private float movementSpeed = 8f;
     [SerializeField] public bool isShifting = false;
 
@@ -24,6 +25,10 @@ public class Player : MonoBehaviour
     public void Shift()
     {
         movementSpeed = 3f;
+    }
+    public void Shoot()
+    {
+        shooter.ShootBullet();
     }
 }
 

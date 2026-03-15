@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
@@ -5,6 +6,7 @@ public class InputHandler : MonoBehaviour
     private CharacterController characterController;
     private InputAction moveAction;
     private InputAction shiftAction;
+    private InputAction shootAction;
     private Player player;
     void Awake()
     {
@@ -17,6 +19,7 @@ public class InputHandler : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         shiftAction = InputSystem.actions.FindAction("Shift");
+        shootAction = InputSystem.actions.FindAction("Shoot");
     }
 
     void Update()
@@ -31,6 +34,10 @@ public class InputHandler : MonoBehaviour
         else
         {
             player.isShifting = false;
+        }
+        if (shootAction.IsPressed() && player.shooter.canBeShot)
+        {
+            player.Shoot();
         }
     }
 
