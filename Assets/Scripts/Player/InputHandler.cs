@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     private InputAction moveAction;
     private InputAction shiftAction;
     private InputAction shootAction;
+    private InputAction meleeAction;
     private Player player;
     void Awake()
     {
@@ -20,6 +21,7 @@ public class InputHandler : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         shiftAction = InputSystem.actions.FindAction("Shift");
         shootAction = InputSystem.actions.FindAction("Shoot");
+        meleeAction = InputSystem.actions.FindAction("Melee");
     }
 
     void Update()
@@ -38,6 +40,10 @@ public class InputHandler : MonoBehaviour
         if (shootAction.IsPressed() && player.shooter.canBeShot)
         {
             player.Shoot();
+        }
+        if (meleeAction.WasPerformedThisFrame() && !player.isMeleeActive)
+        {
+            player.Melee();
         }
     }
 

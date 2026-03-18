@@ -25,7 +25,7 @@ public class Shooter : MonoBehaviour
             if(cooldown <= 0)
             {
                 canBeShot = true;
-                cooldown = 0.2f;
+                cooldown = 0.15f;
                 wasShot = false;
             }
             
