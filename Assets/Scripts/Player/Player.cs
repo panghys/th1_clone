@@ -2,17 +2,21 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using PrimeTween;
+using System.Runtime.CompilerServices;
 
 public class Player : MonoBehaviour
 {
     private Rigidbody2D rb;
     private Vector2 movement;
+    public bool isMoving = false;
+    public bool isShifting = false;
+    public bool canMove = true;
+    public bool isMeleeActive = false;
     [SerializeField] private GameObject hurtbox;
     [SerializeField] public Shooter shooter;
-    [SerializeField] private float movementSpeed = 8f;
-    [SerializeField] public bool isShifting = false;
     [SerializeField] private Melee melee;
-    public bool isMeleeActive = false;
+    [SerializeField] private float movementSpeed = 8f;
+    [SerializeField] private float dashSpeed;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,7 +32,7 @@ public class Player : MonoBehaviour
     }
     public void Move(Vector2 vector)
     {
-        movement = vector;
+       if(canMove) movement = vector;
     }
     public void Shift()
     {
@@ -44,7 +48,17 @@ public class Player : MonoBehaviour
     {
         melee.gameObject.SetActive(true);
         isMeleeActive = true;
-        Tween.Delay(0.6f, () => {melee.gameObject.SetActive(false);isMeleeActive = false;});
+        canMove = false;
+        Tween.Delay(0.6f, () => {melee.gameObject.SetActive(false);isMeleeActive = false; canMove = true;});
+    }
+
+    public void MeleeDash(Vector2 direction)
+    {
+        melee.gameObject.SetActive(true);
+        isMeleeActive = true;
+        rb.linearVelocity = direction * dashSpeed;
+        canMove = false;
+        Tween.Delay(0.6f, () => {melee.gameObject.SetActive(false);isMeleeActive = false; canMove = true;});
     }
 }
 

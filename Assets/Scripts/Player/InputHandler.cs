@@ -3,15 +3,14 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputHandler : MonoBehaviour
 {
-    private CharacterController characterController;
     private InputAction moveAction;
     private InputAction shiftAction;
     private InputAction shootAction;
     private InputAction meleeAction;
     private Player player;
+    public Vector2 movewea;
     void Awake()
     {
-        characterController = GetComponent<CharacterController>();
         player = GetComponent<Player>();
 
     }
@@ -26,8 +25,17 @@ public class InputHandler : MonoBehaviour
 
     void Update()
     {
-        Vector2 movewea = moveAction.ReadValue<Vector2>();
+        movewea = moveAction.ReadValue<Vector2>();
         player.Move(movewea);
+        if(movewea == Vector2.zero)
+        {
+            player.isMoving = false;
+        }
+        else
+        {
+            player.isMoving = true;
+        }
+
         if (shiftAction.IsPressed())
         {
             player.isShifting = true;
@@ -41,9 +49,13 @@ public class InputHandler : MonoBehaviour
         {
             player.Shoot();
         }
-        if (meleeAction.WasPerformedThisFrame() && !player.isMeleeActive)
+        if (meleeAction.WasPerformedThisFrame() && !player.isMeleeActive && !player.isMoving)
         {
             player.Melee();
+        }
+        if(meleeAction.WasPerformedThisFrame() && player.isMoving && !player.isMeleeActive)
+        {
+            player.MeleeDash(movewea);
         }
     }
 

@@ -83,7 +83,6 @@ public class Ball : MonoBehaviour
         hitLayersMelee = LayerMask.GetMask("PlayerMelee");
         if (Physics2D.OverlapCircle(origen, radio, hitLayersMelee))
         {
-            Debug.Log("pesco xd");
             Collider2D[] hitsMelee = Physics2D.OverlapCircleAll(origen, radio, hitLayersMelee);
             foreach (Collider2D hitbox in hitsMelee)
             {
