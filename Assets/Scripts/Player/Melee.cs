@@ -14,11 +14,12 @@ public class Melee : MonoBehaviour
         }
         else if(hit == rightBox)
         {
-            rb.linearVelocity = new Vector2(10f,10f);
+            rb.linearVelocity = new Vector2(0,10f);
         }
         else
         {
-            rb.linearVelocity = new Vector2(0,10f);
+            rb.linearVelocity = new Vector2(10f,10f);
         }
+        gameObject.SetActive(false);
     }
 }

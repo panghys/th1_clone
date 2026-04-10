@@ -36,15 +36,15 @@ public class Bullet : MonoBehaviour
     {
         if(hit == leftBox)
         {
-            rb.linearVelocity = new Vector2(-7f,7f);
+            rb.linearVelocity = new Vector2(-8f,8f);
         }
         else if(hit == rightBox)
         {
-            rb.linearVelocity = new Vector2(7f,7f);
+            rb.linearVelocity = new Vector2(8f,8f);
         }
         else
         {
-            rb.linearVelocity = new Vector2(0,7f);
+            rb.linearVelocity = new Vector2(0,8f);
         }
     }
 
