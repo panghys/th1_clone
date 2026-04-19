@@ -6,6 +6,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private Vector2 initialpos;
     [SerializeField] private List<Collider2D> hitboxesProyectile;
     [SerializeField] private List<Collider2D> hitboxesMelee;
     private LayerMask hitLayers;
@@ -19,7 +20,18 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
+        initialpos = transform.position;
         rb.linearVelocity = new Vector3(3f,3f);
+    }
+
+    void Update()
+    {
+        if (GameManager.instance.wasPlayerHit)
+        {
+            transform.position = initialpos;
+            rb.linearVelocity = Vector3.zero;
+            GameManager.instance.playerHit();
+        }
     }
 
     private void FixedUpdate()

@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-
     public int planksRequired;
+    public GameManager gm;
     public List<Plank> planksSoFar;
 
     void Awake()
@@ -22,12 +22,18 @@ public class LevelManager : MonoBehaviour
             if (plank.GetComponent<Plank>().wasActivated && !planksSoFar.Contains(plank.GetComponent<Plank>()))
             {
                 planksSoFar.Add(plank.GetComponent<Plank>());
+                GameManager.instance.AddPoints(plank.GetComponent<Plank>().pointsWorth);
             }
         }
 
         if(planksSoFar.Count == planksRequired)
         {
-            Debug.Log("yattaa");
+            GameManager.instance.nextLevel();
         }
+    }
+
+    public void verificar()
+    {
+        Debug.Log(" de verdad estoy xd ");
     }
 }
