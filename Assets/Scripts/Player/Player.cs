@@ -17,6 +17,13 @@ public class Player : MonoBehaviour
     [SerializeField] private Melee melee;
     [SerializeField] private float movementSpeed = 8f;
     [SerializeField] private float dashSpeed;
+
+    public static Player Instance;
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();

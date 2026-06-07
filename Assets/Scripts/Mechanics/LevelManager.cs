@@ -6,6 +6,9 @@ public class LevelManager : MonoBehaviour
     public int planksRequired;
     public GameManager gm;
     public List<Plank> planksSoFar;
+    [SerializeField] private float levelTimer = 60f;
+    public bool levelStart = false;
+    public bool timeout = false;
 
     void Awake()
     {
@@ -13,10 +16,24 @@ public class LevelManager : MonoBehaviour
         {
             planksRequired++;
         }
+
+        levelStart = true;
     }
 
     void Update()
     {
+
+        if (levelStart)
+        {
+            levelTimer -= Time.deltaTime;
+            if(levelTimer <= 0)
+            {
+                timeout = true;
+                levelTimer = 10000f;
+                levelStart = false;
+            }
+        }
+
         foreach(Transform plank in transform)
         {
             if (plank.GetComponent<Plank>().wasActivated && !planksSoFar.Contains(plank.GetComponent<Plank>()))
